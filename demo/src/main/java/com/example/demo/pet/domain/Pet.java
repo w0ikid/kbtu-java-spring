@@ -42,4 +42,29 @@ public class Pet {
     public User getOwner() {
         return owner;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public Long getOwnerId() {
+        return owner.getId();
+    }
+
+    public OffsetDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
 }

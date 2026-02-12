@@ -5,21 +5,24 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import com.example.demo.pet.app.PetExternalService;
 import com.example.demo.pet.app.PetService;
 
 import com.example.demo.pet.api.dto.CreatePetRequest;
 import com.example.demo.pet.api.dto.CreatePetResponce;
 import com.example.demo.pet.api.dto.UpdatePetRequest;
 
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/pets")
 public class PetController {
 
     private final PetService petService;
-
-    public PetController(PetService petService) {
+    private final PetExternalService service;
+    public PetController(PetService petService, PetExternalService service) {
         this.petService = petService;
+        this.service = service;
     }
 
     private CreatePetResponce toResponse(Pet pet) {
@@ -58,5 +61,13 @@ public class PetController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         petService.deleteMyPet(id);
+    }
+
+    @GetMapping("/image")
+    public Map<String, String> getExternalPetData() {
+        return Map.of(
+            "source", "external-api",
+            "image", service.getRandomDogImage()
+        );
     }
 }

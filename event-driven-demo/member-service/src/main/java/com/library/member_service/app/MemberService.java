@@ -31,8 +31,6 @@ public class MemberService {
         Member member = memberMapper.toEntity(request);
         member.setBorrowedBooksCount(0);
         member.setCreatedAt(LocalDateTime.now());
-        // MapStruct should handle phone if MemberRequest/MemberResponse/MemberMapper are updated, 
-        // but for now I'll ensure it works or update DTOs next.
         Member saved = memberRepository.save(member);
         return memberMapper.toResponse(saved);
     }
